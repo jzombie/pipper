@@ -1,6 +1,6 @@
 # Pipper - Python Virtual Environment Manager
 
-Pipper is a simple command-line tool for managing Python virtual environments and requirements. It simplifies common tasks such as creating, activating, installing, freezing, and uninstalling Python packages within a virtual environment.
+Pipper intends to make working with pip a bit easier.
 
 ## Features
 
@@ -13,6 +13,8 @@ Pipper is a simple command-line tool for managing Python virtual environments an
 ## Usage
 
 ### Installation
+
+Note: Pipper requires a Bash shell.
 
 Pipper can be used without installation by running the `pipper.sh` script directly. However, if you want to make it globally accessible, you can install it as follows:
 
