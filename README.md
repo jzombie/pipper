@@ -39,7 +39,7 @@ chmod +x pipper.sh
 4. Create a symbolic link to the script in a directory that's in your system's `PATH`, such as `/usr/local/bin`:
 
 ```bash
-sudo ln -s \$(pwd)/pipper.sh /usr/local/bin/pipper
+sudo ln -s $(pwd)/pipper.sh /usr/local/bin/pipper
 ```
 
 Now, you can use Pipper as a global command by typing `pipper` in your terminal.
