@@ -13,74 +13,63 @@ file_exists() {
     [ -f "$1" ]
 }
 
-# Test the create_venv function
-echo "Testing create_venv function..."
-$PIPPER_SCRIPT create
-if [ $? -eq 0 ] && dir_exists "venv"; then
-    echo "create_venv test passed"
-else
-    echo "create_venv test failed"
-fi
+# Function to run a test command, check its success, and handle expected failures
+run_test() {
+    test_command=$1
+    test_title=$2
+    expect_failure=${3:-false}
 
-# Test the activate_venv function
-echo "Testing activate_venv function..."
-output=$($PIPPER_SCRIPT activate)
-if [ $? -eq 0 ] && [ "$output" == "To activate the virtual environment, run:" ]; then
-    echo "activate_venv test passed"
-else
-    echo "activate_venv test failed"
-fi
+    echo "Running test: $test_title"
+    eval $test_command
+    result=$?
 
-# Test the install_requirements function
-echo "Testing install_requirements function..."
-$PIPPER_SCRIPT create  # Create the virtual environment
-if [ $? -eq 0 ]; then
-    $PIPPER_SCRIPT install
-    if [ $? -eq 0 ]; then
-        echo "install_requirements test passed"
-    else
-        echo "install_requirements test failed"
-    fi
-else
-    echo "install_requirements test failed (preparation step)"
-fi
-
-# Test the freeze_requirements function
-echo "Testing freeze_requirements function..."
-$PIPPER_SCRIPT create  # Create the virtual environment
-if [ $? -eq 0 ]; then
-    # Create a requirements.txt file
-    echo "package1==1.0" > requirements.txt
-    $PIPPER_SCRIPT freeze
-    if [ $? -eq 0 ] && [ -f "requirements.txt" ]; then
-        echo "freeze_requirements test passed"
-    else
-        echo "freeze_requirements test failed"
-    fi
-else
-    echo "freeze_requirements test failed (preparation step)"
-fi
-
-# Test the uninstall_requirements function
-echo "Testing uninstall_requirements function..."
-$PIPPER_SCRIPT create  # Create the virtual environment
-if [ $? -eq 0 ]; then
-    # Create a requirements.txt file
-    echo "package1==1.0" > requirements.txt
-    $PIPPER_SCRIPT install  # Install requirements
-    if [ $? -eq 0 ]; then
-        $PIPPER_SCRIPT uninstall
-        if [ $? -eq 0 ]; then
-            echo "uninstall_requirements test passed"
+    if [ $result -ne 0 ]; then
+        if [ "$expect_failure" = true ]; then
+            echo "$test_title: Passed (Failure was expected)"
         else
-            echo "uninstall_requirements test failed"
+            echo "$test_title: Failed"
+            exit -1
         fi
     else
-        echo "uninstall_requirements test failed (install step)"
+        if [ "$expect_failure" = true ]; then
+            echo "$test_title: Failed (Success was unexpected)"
+            exit -1
+        else
+            echo "$test_title: Passed"
+        fi
     fi
-else
-    echo "uninstall_requirements test failed (preparation step)"
-fi
+}
+
+# Function to run a test that is expected to fail
+run_failure_test() {
+    test_command=$1
+    test_title=$2
+
+    run_test "$test_command" "$test_title" true
+}
+
+# Test with an invalid Python version (failure is expected)
+run_failure_test "$PIPPER_SCRIPT create python8" "Invalid Python Version Test"
+
+# Test with a valid Python version (success is expected)
+run_test "$PIPPER_SCRIPT create python3 && dir_exists venv" "Valid Python Version Test"
+
+# Test the create_venv function (success is expected)
+run_test "$PIPPER_SCRIPT create && dir_exists venv" "Create Virtual Environment Test"
+
+# Test the activate_venv function (success is expected)
+activate_output=$($PIPPER_SCRIPT activate | tr -d '\n')
+expected_output="To activate the virtual environment, run:source venv/bin/activate"
+run_test "[ \"$activate_output\" == \"$expected_output\" ]" "Activate Virtual Environment Test" 
+
+# Test the install_requirements function (success is expected)
+run_test "$PIPPER_SCRIPT create && echo 'requests==2.25.1' > requirements.txt && $PIPPER_SCRIPT install" "Install Requirements Test" 
+
+# Test the freeze_requirements function (success is expected)
+run_test "$PIPPER_SCRIPT create && echo 'requests==2.25.1' > requirements.txt && $PIPPER_SCRIPT freeze && file_exists requirements.txt" "Freeze Requirements Test" 
+
+# Test the uninstall_requirements function (success is expected)
+run_test "$PIPPER_SCRIPT create && echo 'requests==2.25.1' > requirements.txt && $PIPPER_SCRIPT install && $PIPPER_SCRIPT uninstall" "Uninstall Requirements Test" 
 
 # Cleanup: Remove the virtual environment and requirements.txt
 rm -rf venv requirements.txt

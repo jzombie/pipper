@@ -1,19 +1,43 @@
 #!/bin/bash
 
+set -e  # Exit immediately on error
+
 # Default name for the virtual environment
 VENV_NAME="venv"
 
-# Functions
 create_venv() {
-    python -m venv $VENV_NAME
+    if [ -n "$1" ]; then
+        if command -v "$1" &>/dev/null; then
+            PYTHON="$1"
+        else
+            echo "Error: Python interpreter '$1' not found."
+            exit 1
+        fi
+    elif command -v python3 &>/dev/null; then
+        PYTHON=python3
+    elif command -v python &>/dev/null; then
+        PYTHON=python
+    else
+        echo "Error: Neither Python 3 nor Python is available."
+        exit 1
+    fi
+
+    $PYTHON -m venv $VENV_NAME
+    if [ $? -ne 0 ]; then
+        echo "Error: Failed to create virtual environment with $PYTHON."
+        exit 1
+    fi
     echo "Virtual environment '$VENV_NAME' created."
+
+    echo ""
+    echo ""
+    activate_venv
 }
 
 activate_venv() {
     echo "To activate the virtual environment, run:"
     echo "source $VENV_NAME/bin/activate"
-    echo ""
-    echo ""
+    printf "\n\n"
 }
 
 install_requirements() {
@@ -45,7 +69,7 @@ uninstall_requirements() {
 # Command line arguments handling
 case $1 in
     create)
-        create_venv
+        create_venv "$2"  # Pass the second argument to create_venv
         ;;
     activate)
         activate_venv

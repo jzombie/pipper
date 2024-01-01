@@ -56,7 +56,17 @@ Pipper supports the following commands:
 
 - `freeze`: Freeze the installed packages into the `requirements.txt` file.
 
-- `uninstall`: Uninstall packages listed in the `requirements.txt` file from the virtual environment.
+- `uninstall`: Uninstall ALL packages listed in the `requirements.txt` file from the virtual environment.
+
+### Custom Python Environment
+
+To create a virtual environment with a custom Python interpreter, use the create command followed by the path or alias of the desired Python version. For example:
+
+```bash
+pipper create python3.8
+```
+
+This command will attempt to create a virtual environment using Python 3.8, if it's available on your system.
 
 ### Example Workflow
 
@@ -69,8 +79,6 @@ Here's an example of how to use Pipper to manage a Python project:
 3. Install project dependencies from a `requirements.txt` file.
 
 4. As you work on your project and install new packages, periodically freeze the requirements.
-
-5. If you want to remove a package, uninstall it and update the `requirements.txt` file.
 
 ## License
 
