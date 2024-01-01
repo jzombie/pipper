@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e  # Exit immediately on error
+
 # Default name for the virtual environment
 VENV_NAME="venv"
 
