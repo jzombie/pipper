@@ -17,13 +17,16 @@ create_venv() {
 
     $PYTHON -m venv $VENV_NAME
     echo "Virtual environment '$VENV_NAME' created."
+
+    # Automatically fall-through to activate_venv
+    printf "\n\n"
+    activate_venv
 }
 
 activate_venv() {
     echo "To activate the virtual environment, run:"
     echo "source $VENV_NAME/bin/activate"
-    echo ""
-    echo ""
+    printf "\n\n"
 }
 
 install_requirements() {
