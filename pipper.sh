@@ -6,7 +6,14 @@ set -e  # Exit immediately on error
 VENV_NAME="venv"
 
 create_venv() {
-    if command -v python3 &>/dev/null; then
+    if [ -n "$1" ]; then
+        if command -v "$1" &>/dev/null; then
+            PYTHON="$1"
+        else
+            echo "Error: Python interpreter '$1' not found."
+            exit 1
+        fi
+    elif command -v python3 &>/dev/null; then
         PYTHON=python3
     elif command -v python &>/dev/null; then
         PYTHON=python
@@ -16,10 +23,14 @@ create_venv() {
     fi
 
     $PYTHON -m venv $VENV_NAME
+    if [ $? -ne 0 ]; then
+        echo "Error: Failed to create virtual environment with $PYTHON."
+        exit 1
+    fi
     echo "Virtual environment '$VENV_NAME' created."
 
-    # Automatically fall-through to activate_venv
-    printf "\n\n"
+    echo ""
+    echo ""
     activate_venv
 }
 
@@ -58,7 +69,7 @@ uninstall_requirements() {
 # Command line arguments handling
 case $1 in
     create)
-        create_venv
+        create_venv "$2"  # Pass the second argument to create_venv
         ;;
     activate)
         activate_venv

@@ -13,6 +13,24 @@ file_exists() {
     [ -f "$1" ]
 }
 
+# Test with an invalid Python version
+echo "Testing with an invalid Python version..."
+$PIPPER_SCRIPT create python8
+if [ $? -ne 0 ]; then
+    echo "Test with invalid Python version passed"
+else
+    echo "Test with invalid Python version failed"
+fi
+
+# Test with a valid Python version
+echo "Testing with a valid Python version..."
+$PIPPER_SCRIPT create python3
+if [ $? -eq 0 ] && dir_exists "venv"; then
+    echo "Test with valid Python version passed"
+else
+    echo "Test with valid Python version failed"
+fi
+
 # Test the create_venv function
 echo "Testing create_venv function..."
 $PIPPER_SCRIPT create
