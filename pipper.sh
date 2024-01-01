@@ -5,9 +5,17 @@ set -e  # Exit immediately on error
 # Default name for the virtual environment
 VENV_NAME="venv"
 
-# Functions
 create_venv() {
-    python -m venv $VENV_NAME
+    if command -v python3 &>/dev/null; then
+        PYTHON=python3
+    elif command -v python &>/dev/null; then
+        PYTHON=python
+    else
+        echo "Error: Neither Python 3 nor Python is available."
+        exit 1
+    fi
+
+    $PYTHON -m venv $VENV_NAME
     echo "Virtual environment '$VENV_NAME' created."
 }
 
