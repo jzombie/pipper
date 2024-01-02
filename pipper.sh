@@ -41,6 +41,7 @@ activate_venv() {
 
 install_requirements() {
     if [ -f "requirements.txt" ]; then
+        # shellcheck disable=SC1091
         source "$VENV_NAME/bin/activate"  # Activate the virtual environment
         pip install -r requirements.txt
         echo "Requirements installed."
@@ -50,6 +51,7 @@ install_requirements() {
 }
 
 freeze_requirements() {
+    # shellcheck disable=SC1091
     source "$VENV_NAME/bin/activate"  # Activate the virtual environment
     pip freeze > requirements.txt
     echo "Requirements frozen into requirements.txt."
@@ -57,6 +59,7 @@ freeze_requirements() {
 
 uninstall_requirements() {
     if [ -f "requirements.txt" ]; then
+        # shellcheck disable=SC1091
         source "$VENV_NAME/bin/activate"  # Activate the virtual environment
         pip uninstall -y -r requirements.txt
         echo "Requirements uninstalled."
@@ -67,6 +70,7 @@ uninstall_requirements() {
 
 run_script() {
     if [ -f "$1" ]; then
+        # shellcheck disable=SC1091
         source "$VENV_NAME/bin/activate"  # Activate the virtual environment
         python "$1"  # Run the Python script
     else
