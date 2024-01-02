@@ -96,5 +96,51 @@ test_pipper_run() {
 # Test the pipper run command (success is expected)
 test_pipper_run
 
+# Function to test pipper run_tests with a dry run
+test_pipper_run_tests_dry_run() {
+    # Default args
+
+    # Construct the expected output command
+    expected_command="source venv/bin/activate && python -m unittest discover -s 'test' -p 'test*.py'"
+
+    # Get the actual output command
+    actual_output=$($PIPPER_SCRIPT test-dry-run)
+
+    # Check if the actual output matches the expected command
+    if [ "$actual_output" == "$expected_command" ]; then
+        echo "Pipper Run Tests Echo Command Test: Passed"
+    else
+        echo "Pipper Run Tests Echo Command Test: Failed"
+        echo "Expected: '$expected_command', but got: '$actual_output'"
+        exit -1
+    fi
+
+    ####
+
+    # Custom location
+
+    # Construct the expected output command
+    expected_command="source venv/bin/activate && python -m unittest discover -s 'custom-test-dir' -p 'test*.py'"
+
+    # Get the actual output command
+    actual_output=$($PIPPER_SCRIPT test-dry-run 'custom-test-dir' 'test*.py')
+
+    # Check if the actual output matches the expected command
+    if [ "$actual_output" == "$expected_command" ]; then
+        echo "Pipper Run Tests Echo Command Test: Passed"
+    else
+        echo "Pipper Run Tests Echo Command Test: Failed"
+        echo "Expected: '$expected_command', but got: '$actual_output'"
+        exit -1
+    fi
+}
+
+
+# Test the pipper run_tests command with --echo flag (success is expected)
+test_pipper_run_tests_dry_run
+
+# Test that test runner fails if test location is unavailable (failure is expected)
+run_failure_test "$PIPPER_SCRIPT test" "Invalid Python Test Location"
+ 
 # Cleanup: Remove the virtual environment and requirements.txt
 rm -rf venv requirements.txt

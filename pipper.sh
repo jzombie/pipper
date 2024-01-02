@@ -75,6 +75,48 @@ run_script() {
     fi
 }
 
+run_tests_dry_run() {
+    local source_dir="${1:-test}"
+    local pattern="${2:-test*.py}"
+
+    # Construct the command
+    local command="source $VENV_NAME/bin/activate && python -m unittest discover -s '$source_dir' -p '$pattern'"
+
+    # Echo the command
+    echo "$command"
+}
+
+run_tests() {
+    local source_dir="${1:-test}"
+    local pattern="${2:-test*.py}"
+    local echo_flag=false
+
+    # Check for the '--echo' flag in all arguments
+    for arg in "$@"; do
+        if [ "$arg" = "--echo" ]; then
+            echo_flag=true
+            break
+        fi
+    done
+
+    # Check if the source directory exists (this prevents unittest from potentially discovering and testing unintended locations)
+    if [ ! -d "$source_dir" ]; then
+        echo "Error: Source directory '$source_dir' does not exist."
+        exit 1
+    fi
+
+    # Construct the command with an absolute path to the virtual environment
+    local venv_path="$(pwd)/$VENV_NAME/bin/activate"
+    local command="source $venv_path && python -m unittest discover -s '$source_dir' -p '$pattern'"
+
+    # Echo the command if '--echo' flag is set
+    if [ "$echo_flag" = true ]; then
+        echo "$command"
+    else
+        # Execute the command within the same shell
+        eval "$command"
+    fi
+}
 
 # Command line arguments handling
 case $1 in
@@ -96,7 +138,13 @@ case $1 in
     run)
         run_script "$2"  # Pass the second argument to run_script
         ;;
+    test)
+        run_tests "$2" "$3"
+        ;;
+    test-dry-run)
+        run_tests_dry_run "$2" "$3"
+        ;;
     *)
-        echo "Usage: $0 {create|activate|install|freeze|uninstall|run}"
+        echo "Usage: $0 {create|activate|install|freeze|uninstall|run|test|test-dry-run}"
         ;;
 esac
