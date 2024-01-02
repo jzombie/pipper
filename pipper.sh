@@ -66,6 +66,16 @@ uninstall_requirements() {
     fi
 }
 
+run_script() {
+    if [ -f "$1" ]; then
+        source $VENV_NAME/bin/activate  # Activate the virtual environment
+        python "$1"  # Run the Python script
+    else
+        echo "Error: Script '$1' not found."
+    fi
+}
+
+
 # Command line arguments handling
 case $1 in
     create)
@@ -83,7 +93,10 @@ case $1 in
     uninstall)
         uninstall_requirements
         ;;
+    run)
+        run_script "$2"  # Pass the second argument to run_script
+        ;;
     *)
-        echo "Usage: $0 {create|activate|install|freeze|uninstall}"
+        echo "Usage: $0 {create|activate|install|freeze|uninstall|run}"
         ;;
 esac

@@ -71,5 +71,30 @@ run_test "$PIPPER_SCRIPT create && echo 'requests==2.25.1' > requirements.txt &&
 # Test the uninstall_requirements function (success is expected)
 run_test "$PIPPER_SCRIPT create && echo 'requests==2.25.1' > requirements.txt && $PIPPER_SCRIPT install && $PIPPER_SCRIPT uninstall" "Uninstall Requirements Test" 
 
+# Function to test pipper run
+test_pipper_run() {
+    # Create a temporary Python script
+    echo "print('Hello, World!')" > temp_script.py
+
+    # Run the script using pipper
+    run_output=$($PIPPER_SCRIPT run temp_script.py 2>&1)
+
+    # Check if the output is as expected
+    expected_output="Hello, World!"
+    if [ "$run_output" == "$expected_output" ]; then
+        echo "Pipper Run Test: Passed"
+    else
+        echo "Pipper Run Test: Failed"
+        echo "Expected: '$expected_output', but got: '$run_output'"
+        exit -1
+    fi
+
+    # Cleanup: Remove the temporary script
+    rm -f temp_script.py
+}
+
+# Test the pipper run command (success is expected)
+test_pipper_run
+
 # Cleanup: Remove the virtual environment and requirements.txt
 rm -rf venv requirements.txt
