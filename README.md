@@ -1,3 +1,5 @@
+![CI](https://github.com/jzombie/pipper/workflows/CI/badge.svg?branch=main)
+
 # Pipper - Python Virtual Environment Manager
 
 Pipper intends to make working with pip a bit easier.
