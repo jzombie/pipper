@@ -86,6 +86,7 @@ run_tests_dry_run() {
     local pattern="${2:-test*.py}"
     local command="source $VENV_NAME/bin/activate && python -m unittest discover -s '$source_dir' -p '$pattern'"
 
+    # Return the command instead of echoing it
     echo "$command"
 }
 
@@ -106,9 +107,9 @@ run_tests() {
         exit 1
     fi
 
-    local venv_path
-    venv_path="$(pwd)/$VENV_NAME/bin/activate"
-    local command="source $venv_path && python -m unittest discover -s '$source_dir' -p '$pattern'"
+    # Get the command from run_tests_dry_run
+    local command
+    command=$(run_tests_dry_run "$source_dir" "$pattern")
 
     if [ "$echo_flag" = true ]; then
         echo "$command"
