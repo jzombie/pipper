@@ -13,7 +13,7 @@ Pipper: **P**ackage **I**nstaller and **P**ython **P**roject **E**nvironment **R
 - `pipper freeze`: Freeze installed packages to update the `requirements.txt` file.
 - `pipper uninstall`: Uninstall ALL packages listed in the `requirements.txt` file (Note: if wanting to uninstall a *specific* package, use `pip uninstall [package-name]` instead).
 - `pipper run`: Run a Python script within the virtual environment.
-- `pipper test`: Run unit tests within the virtual environment.
+- `pipper test`: Run unit tests within the virtual environment (via `unittest`).
 
 *Optionally:*
 
