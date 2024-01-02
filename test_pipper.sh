@@ -96,8 +96,8 @@ test_pipper_run() {
 # Test the pipper run command (success is expected)
 test_pipper_run
 
-# Function to test pipper run_tests with --echo flag
-test_pipper_run_tests_echo() {
+# Function to test pipper run_tests with a dry run
+test_pipper_run_tests_dry_run() {
     # Default args
 
     # Construct the expected output command
@@ -137,7 +137,10 @@ test_pipper_run_tests_echo() {
 
 
 # Test the pipper run_tests command with --echo flag (success is expected)
-test_pipper_run_tests_echo
+test_pipper_run_tests_dry_run
+
+# Test that test runner fails if test location is unavailable (failure is expected)
+run_failure_test "$PIPPER_SCRIPT test" "Invalid Python Test Location"
  
 # Cleanup: Remove the virtual environment and requirements.txt
 rm -rf venv requirements.txt

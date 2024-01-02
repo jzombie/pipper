@@ -89,15 +89,33 @@ run_tests_dry_run() {
 run_tests() {
     local source_dir="${1:-test}"
     local pattern="${2:-test*.py}"
+    local echo_flag=false
 
-    # Execute the tests using the dry run command
-    run_tests_dry_run "$source_dir" "$pattern"
+    # Check for the '--echo' flag in all arguments
+    for arg in "$@"; do
+        if [ "$arg" = "--echo" ]; then
+            echo_flag=true
+            break
+        fi
+    done
 
-    # Construct the command
-    local command="source $VENV_NAME/bin/activate && python -m unittest discover -s '$source_dir' -p '$pattern'"
+    # Check if the source directory exists (this prevents unittest from potentially discovering and testing unintended locations)
+    if [ ! -d "$source_dir" ]; then
+        echo "Error: Source directory '$source_dir' does not exist."
+        exit 1
+    fi
 
-    # Execute the command
-    eval "$command"
+    # Construct the command with an absolute path to the virtual environment
+    local venv_path="$(pwd)/$VENV_NAME/bin/activate"
+    local command="source $venv_path && python -m unittest discover -s '$source_dir' -p '$pattern'"
+
+    # Echo the command if '--echo' flag is set
+    if [ "$echo_flag" = true ]; then
+        echo "$command"
+    else
+        # Execute the command within the same shell
+        eval "$command"
+    fi
 }
 
 # Command line arguments handling
