@@ -9,6 +9,7 @@ Pipper intends to make working with pip a bit easier.
 - Install packages from a `requirements.txt` file.
 - Freeze installed packages to update the `requirements.txt` file.
 - Uninstall packages listed in the `requirements.txt` file.
+- Run a Python script within the virtual environment using `pipper run`.
 
 ## Usage
 
@@ -58,6 +59,8 @@ Pipper supports the following commands:
 
 - `uninstall`: Uninstall ALL packages listed in the `requirements.txt` file from the virtual environment.
 
+- `run`: Execute a Python script within the virtual environment.
+
 ### Custom Python Environment
 
 To create a virtual environment with a custom Python interpreter, use the create command followed by the path or alias of the desired Python version. For example:
@@ -67,6 +70,14 @@ pipper create python3.8
 ```
 
 This command will attempt to create a virtual environment using Python 3.8, if it's available on your system.
+
+### Running Python Scripts
+
+To run a Python script within the virtual environment, use the run command:
+
+```bash
+pipper run script.py
+```
 
 ### Example Workflow
 
