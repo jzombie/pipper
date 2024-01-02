@@ -20,7 +20,7 @@ run_test() {
     expect_failure=${3:-false}
 
     echo "Running test: $test_title"
-    eval $test_command
+    eval "$test_command"
     result=$?
 
     if [ $result -ne 0 ]; then
@@ -28,12 +28,12 @@ run_test() {
             echo "$test_title: Passed (Failure was expected)"
         else
             echo "$test_title: Failed"
-            exit -1
+            exit 1
         fi
     else
         if [ "$expect_failure" = true ]; then
             echo "$test_title: Failed (Success was unexpected)"
-            exit -1
+            exit 1
         else
             echo "$test_title: Passed"
         fi
@@ -86,7 +86,7 @@ test_pipper_run() {
     else
         echo "Pipper Run Test: Failed"
         echo "Expected: '$expected_output', but got: '$run_output'"
-        exit -1
+        exit 1
     fi
 
     # Cleanup: Remove the temporary script
@@ -112,7 +112,7 @@ test_pipper_run_tests_dry_run() {
     else
         echo "Pipper Run Tests Echo Command Test: Failed"
         echo "Expected: '$expected_command', but got: '$actual_output'"
-        exit -1
+        exit 1
     fi
 
     ####
@@ -131,7 +131,7 @@ test_pipper_run_tests_dry_run() {
     else
         echo "Pipper Run Tests Echo Command Test: Failed"
         echo "Expected: '$expected_command', but got: '$actual_output'"
-        exit -1
+        exit 1
     fi
 }
 

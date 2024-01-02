@@ -6,6 +6,7 @@ set -e  # Exit immediately on error
 VENV_NAME="venv"
 
 create_venv() {
+    local PYTHON
     if [ -n "$1" ]; then
         if command -v "$1" &>/dev/null; then
             PYTHON="$1"
@@ -22,27 +23,42 @@ create_venv() {
         exit 1
     fi
 
-    $PYTHON -m venv $VENV_NAME
-    if [ $? -ne 0 ]; then
+    if ! $PYTHON -m venv "$VENV_NAME"; then
         echo "Error: Failed to create virtual environment with $PYTHON."
         exit 1
     fi
     echo "Virtual environment '$VENV_NAME' created."
 
-    echo ""
-    echo ""
-    activate_venv
+    printf "\n\n"
+    activate_venv false
 }
 
 activate_venv() {
-    echo "To activate the virtual environment, run:"
-    echo "source $VENV_NAME/bin/activate"
-    printf "\n\n"
+    local activate="$1"
+    if [ "$activate" = true ]; then
+        # shellcheck disable=SC1091
+        # Purpose: This directive is used to disable ShellCheck warning SC1091.
+        # Context: Warning SC1091 is triggered when ShellCheck encounters a 'source' or '.'
+        #          command that includes a file not specified as input. This often happens
+        #          when sourcing external scripts, such as activation scripts for virtual
+        #          environments or other scripts that are not part of the project's repository.
+        # Reason for Disabling: 
+        # - The files being sourced are dynamically generated (like Python virtualenv's 'activate' script),
+        #   and not available for ShellCheck to analyze.
+        # - These files are standard and trusted, thus not posing a risk that necessitates ShellCheck analysis.
+        # - Disabling this warning allows us to use such scripts without ShellCheck flagging them as issues,
+        #   keeping the focus on actual potential problems in the script's own code.
+        source "$VENV_NAME/bin/activate"
+    else
+        echo "To activate the virtual environment, run:"
+        echo "source $VENV_NAME/bin/activate"
+        printf "\n\n"
+    fi
 }
 
 install_requirements() {
     if [ -f "requirements.txt" ]; then
-        source $VENV_NAME/bin/activate  # Activate the virtual environment
+        activate_venv true
         pip install -r requirements.txt
         echo "Requirements installed."
     else
@@ -51,14 +67,14 @@ install_requirements() {
 }
 
 freeze_requirements() {
-    source $VENV_NAME/bin/activate  # Activate the virtual environment
+    activate_venv true
     pip freeze > requirements.txt
     echo "Requirements frozen into requirements.txt."
 }
 
 uninstall_requirements() {
     if [ -f "requirements.txt" ]; then
-        source $VENV_NAME/bin/activate  # Activate the virtual environment
+        activate_venv true
         pip uninstall -y -r requirements.txt
         echo "Requirements uninstalled."
     else
@@ -68,21 +84,20 @@ uninstall_requirements() {
 
 run_script() {
     if [ -f "$1" ]; then
-        source $VENV_NAME/bin/activate  # Activate the virtual environment
+        activate_venv true
         python "$1"  # Run the Python script
     else
         echo "Error: Script '$1' not found."
+        exit 1
     fi
 }
 
 run_tests_dry_run() {
     local source_dir="${1:-test}"
     local pattern="${2:-test*.py}"
-
-    # Construct the command
     local command="source $VENV_NAME/bin/activate && python -m unittest discover -s '$source_dir' -p '$pattern'"
 
-    # Echo the command
+    # Return the command instead of echoing it
     echo "$command"
 }
 
@@ -91,7 +106,6 @@ run_tests() {
     local pattern="${2:-test*.py}"
     local echo_flag=false
 
-    # Check for the '--echo' flag in all arguments
     for arg in "$@"; do
         if [ "$arg" = "--echo" ]; then
             echo_flag=true
@@ -99,29 +113,25 @@ run_tests() {
         fi
     done
 
-    # Check if the source directory exists (this prevents unittest from potentially discovering and testing unintended locations)
     if [ ! -d "$source_dir" ]; then
         echo "Error: Source directory '$source_dir' does not exist."
         exit 1
     fi
 
-    # Construct the command with an absolute path to the virtual environment
-    local venv_path="$(pwd)/$VENV_NAME/bin/activate"
-    local command="source $venv_path && python -m unittest discover -s '$source_dir' -p '$pattern'"
+    # Get the command from run_tests_dry_run
+    local command
+    command=$(run_tests_dry_run "$source_dir" "$pattern")
 
-    # Echo the command if '--echo' flag is set
     if [ "$echo_flag" = true ]; then
         echo "$command"
     else
-        # Execute the command within the same shell
         eval "$command"
     fi
 }
 
-# Command line arguments handling
 case $1 in
     create)
-        create_venv "$2"  # Pass the second argument to create_venv
+        create_venv "$2"
         ;;
     activate)
         activate_venv
@@ -136,7 +146,7 @@ case $1 in
         uninstall_requirements
         ;;
     run)
-        run_script "$2"  # Pass the second argument to run_script
+        run_script "$2"
         ;;
     test)
         run_tests "$2" "$3"
