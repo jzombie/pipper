@@ -49,6 +49,17 @@ activate_venv() {
     if [ "$activate" = true ]; then
         # Activate the virtual environment.
         # shellcheck disable=SC1091
+        # Purpose: This directive is used to disable ShellCheck warning SC1091.
+        # Context: Warning SC1091 is triggered when ShellCheck encounters a 'source' or '.'
+        #          command that includes a file not specified as input. This often happens
+        #          when sourcing external scripts, such as activation scripts for virtual
+        #          environments or other scripts that are not part of the project's repository.
+        # Reason for Disabling: 
+        # - The files being sourced are dynamically generated (like Python virtualenv's 'activate' script),
+        #   and not available for ShellCheck to analyze.
+        # - These files are standard and trusted, thus not posing a risk that necessitates ShellCheck analysis.
+        # - Disabling this warning allows us to use such scripts without ShellCheck flagging them as issues,
+        #   keeping the focus on actual potential problems in the script's own code.
         source "$VENV_NAME/bin/activate"
     else
         # Display instructions on how to activate the environment manually.
