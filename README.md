@@ -1,5 +1,5 @@
-![CI](https://github.com/jzombie/pipper/workflows/CI/badge.svg)
-![ShellCheck](https://github.com/jzombie/pipper/workflows/ShellCheck/badge.svg)
+[![CI](https://github.com/jzombie/pipper/workflows/CI/badge.svg)](https://github.com/jzombie/pipper/actions/workflows/ci.yml)
+[![ShellCheck](https://github.com/jzombie/pipper/workflows/ShellCheck/badge.svg)](https://github.com/jzombie/pipper/actions/workflows/shellcheck.yml)
 
 # Pipper - Python Virtual Environment Manager
 
