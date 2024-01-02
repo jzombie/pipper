@@ -134,6 +134,7 @@ run_tests() {
     done
 
     # Check if the source directory for tests exists.
+    # This prevents unittest from potentially discovering and running tests outside of intended locations.
     if [ ! -d "$source_dir" ]; then
         echo "Error: Source directory '$source_dir' does not exist."
         exit 1
