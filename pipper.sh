@@ -30,13 +30,19 @@ create_venv() {
     echo "Virtual environment '$VENV_NAME' created."
 
     printf "\n\n"
-    activate_venv
+    activate_venv false
 }
 
 activate_venv() {
-    echo "To activate the virtual environment, run:"
-    echo "source $VENV_NAME/bin/activate"
-    printf "\n\n"
+    local activate="$1"
+    if [ "$activate" = true ]; then
+        # shellcheck disable=SC1091
+        source "$VENV_NAME/bin/activate"
+    else
+        echo "To activate the virtual environment, run:"
+        echo "source $VENV_NAME/bin/activate"
+        printf "\n\n"
+    fi
 }
 
 install_requirements() {
@@ -59,8 +65,7 @@ freeze_requirements() {
 
 uninstall_requirements() {
     if [ -f "requirements.txt" ]; then
-        # shellcheck disable=SC1091
-        source "$VENV_NAME/bin/activate"  # Activate the virtual environment
+        activate_venv true
         pip uninstall -y -r requirements.txt
         echo "Requirements uninstalled."
     else
@@ -70,8 +75,7 @@ uninstall_requirements() {
 
 run_script() {
     if [ -f "$1" ]; then
-        # shellcheck disable=SC1091
-        source "$VENV_NAME/bin/activate"  # Activate the virtual environment
+        activate_venv true
         python "$1"  # Run the Python script
     else
         echo "Error: Script '$1' not found."
