@@ -2,6 +2,8 @@
 
 Pipper intends to make working with pip a bit easier.
 
+**P**ackage **I**nstaller and **P**ython **P**roject **E**nvironment **R**unner
+
 ## Features
 
 - Create a Python virtual environment.
