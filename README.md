@@ -10,6 +10,7 @@ Pipper intends to make working with pip a bit easier.
 - Freeze installed packages to update the `requirements.txt` file.
 - Uninstall packages listed in the `requirements.txt` file.
 - Run a Python script within the virtual environment using `pipper run`.
+- Run unit tests within the virtual environment using `pipper test`.
 
 ## Usage
 
@@ -61,6 +62,8 @@ Pipper supports the following commands:
 
 - `run`: Execute a Python script within the virtual environment.
 
+- `test`: Run unit tests within the virtual environment, using Python's unittest library.
+
 ### Custom Python Environment
 
 To create a virtual environment with a custom Python interpreter, use the create command followed by the path or alias of the desired Python version. For example:
@@ -77,6 +80,37 @@ To run a Python script within the virtual environment, use the run command:
 
 ```bash
 pipper run script.py
+```
+
+### Running Python Unit Tests
+
+To run unit tests within the virtual environment, use the test command:
+
+```bash
+pipper test
+```
+
+By default, this command will discover and run unit tests located in the 'test' directory with filenames matching the pattern 'test*.py'.
+
+You can also specify a custom source directory and file pattern using optional arguments as follows:
+
+```bash
+pipper test [source_directory] [file_pattern]
+```
+
+For example, to run tests located in the 'tests' directory with filenames ending in '_test.py', you can use:
+
+```bash
+pipper test tests '*_test.py'
+```
+
+Note: You can also do a "dry run" to just echo the command it "would have" generated via:
+
+```bash
+pipper test-try-run
+
+# Produces:
+# source venv/bin/activate && python -m unittest discover -s 'test' -p 'test*.py'
 ```
 
 ### Example Workflow

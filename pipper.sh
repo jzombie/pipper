@@ -75,6 +75,30 @@ run_script() {
     fi
 }
 
+run_tests_dry_run() {
+    local source_dir="${1:-test}"
+    local pattern="${2:-test*.py}"
+
+    # Construct the command
+    local command="source $VENV_NAME/bin/activate && python -m unittest discover -s '$source_dir' -p '$pattern'"
+
+    # Echo the command
+    echo "$command"
+}
+
+run_tests() {
+    local source_dir="${1:-test}"
+    local pattern="${2:-test*.py}"
+
+    # Execute the tests using the dry run command
+    run_tests_dry_run "$source_dir" "$pattern"
+
+    # Construct the command
+    local command="source $VENV_NAME/bin/activate && python -m unittest discover -s '$source_dir' -p '$pattern'"
+
+    # Execute the command
+    eval "$command"
+}
 
 # Command line arguments handling
 case $1 in
@@ -96,7 +120,13 @@ case $1 in
     run)
         run_script "$2"  # Pass the second argument to run_script
         ;;
+    test)
+        run_tests "$2" "$3"
+        ;;
+    test-dry-run)
+        run_tests_dry_run "$2" "$3"
+        ;;
     *)
-        echo "Usage: $0 {create|activate|install|freeze|uninstall|run}"
+        echo "Usage: $0 {create|activate|install|freeze|uninstall|run|test|test-dry-run}"
         ;;
 esac
