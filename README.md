@@ -15,7 +15,7 @@ Pipper: **P**ackage **I**nstaller and **P**ython **P**roject **E**nvironment **R
 - `pipper run`: Run a Python script within the virtual environment.
 - `pipper test`: Run unit tests within the virtual environment.
 
-Optionally:
+*Optionally:*
 
 - `pipper activate`: Not generally needed because all other Pipper commands will handle this for you; when executing directly it provides CLI instructions on how to manually start the virtual environment.
 
