@@ -2,20 +2,22 @@
 
 Pipper intends to make working with pip a bit easier.
 
-Pipper is not intended to replace pip, and is intended to be used along-side pip.  If you're not using pip as your package manager, it is not recommended to use this project.
+Pipper is not intended to replace pip, and is intended to be used alongside pip.  If you're not using pip as your package manager, it is not recommended to use this project.
 
 Pipper: **P**ackage **I**nstaller and **P**ython **P**roject **E**nvironment **R**unner
 
 ## Commands/Features
 
+Pipper commands are divided up into two sets of classes.
+
 ### Virtual Environment Preparation
 
 - `pipper create`: Create a Python virtual environment. If you have more than one version of Python installed locally, you can do `pipper create python[python-version]`. (Note: Pipper uses the `venv` directory in your project and supports one environment at a time.)
-- `pipper activate`: Activate a virtual environment; all other Pipper commands do this automatically for you.
+- `pipper activate`: Not generally needed because all other Pipper commands will handle this for you.
 
 ### Virtual Environment Auto-Execution
 
-The following commands automatically start the virtual environment for you and exit the virtual environment when done.
+These commands are designed to function seamlessly, regardless of whether you're operating within a Python virtual environment or not.
 
 - `pipper install`: Install packages from a `requirements.txt` file (Note: if wanting to install a *specific* package, use `pip install [package-name]` instead).
 - `pipper freeze`: Freeze installed packages to update the `requirements.txt` file.
