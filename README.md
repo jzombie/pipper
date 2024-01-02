@@ -8,8 +8,15 @@ Pipper: **P**ackage **I**nstaller and **P**ython **P**roject **E**nvironment **R
 
 ## Commands/Features
 
+### Virtual Environment Preparation
+
 - `pipper create`: Create a Python virtual environment. If you have more than one version of Python installed locally, you can do `pipper create python[python-version]`. (Note: Pipper uses the `venv` directory in your project and supports one environment at a time.)
-- `pipper activate`: Activate a virtual environment.
+- `pipper activate`: Activate a virtual environment; all other Pipper commands do this automatically for you.
+
+### Virtual Environment Auto-Execution
+
+The following commands automatically start the virtual environment for you and exit the virtual environment when done.
+
 - `pipper install`: Install packages from a `requirements.txt` file (Note: if wanting to install a *specific* package, use `pip install [package-name]` instead).
 - `pipper freeze`: Freeze installed packages to update the `requirements.txt` file.
 - `pipper uninstall`: Uninstall packages listed in the `requirements.txt` file (Note: if wanting to uninstall a *specific* package, use `pip uninstall [package-name]` instead).
