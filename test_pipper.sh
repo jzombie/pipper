@@ -20,7 +20,7 @@ run_test() {
     expect_failure=${3:-false}
 
     echo "Running test: $test_title"
-    eval $test_command
+    eval "$test_command"
     result=$?
 
     if [ $result -ne 0 ]; then

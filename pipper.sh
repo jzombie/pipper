@@ -6,6 +6,7 @@ set -e  # Exit immediately on error
 VENV_NAME="venv"
 
 create_venv() {
+    local PYTHON
     if [ -n "$1" ]; then
         if command -v "$1" &>/dev/null; then
             PYTHON="$1"
@@ -22,15 +23,13 @@ create_venv() {
         exit 1
     fi
 
-    $PYTHON -m venv $VENV_NAME
-    if [ $? -ne 0 ]; then
+    if ! $PYTHON -m venv "$VENV_NAME"; then
         echo "Error: Failed to create virtual environment with $PYTHON."
         exit 1
     fi
     echo "Virtual environment '$VENV_NAME' created."
 
-    echo ""
-    echo ""
+    printf "\n\n"
     activate_venv
 }
 
@@ -42,7 +41,7 @@ activate_venv() {
 
 install_requirements() {
     if [ -f "requirements.txt" ]; then
-        source $VENV_NAME/bin/activate  # Activate the virtual environment
+        source "$VENV_NAME/bin/activate"  # Activate the virtual environment
         pip install -r requirements.txt
         echo "Requirements installed."
     else
@@ -51,14 +50,14 @@ install_requirements() {
 }
 
 freeze_requirements() {
-    source $VENV_NAME/bin/activate  # Activate the virtual environment
+    source "$VENV_NAME/bin/activate"  # Activate the virtual environment
     pip freeze > requirements.txt
     echo "Requirements frozen into requirements.txt."
 }
 
 uninstall_requirements() {
     if [ -f "requirements.txt" ]; then
-        source $VENV_NAME/bin/activate  # Activate the virtual environment
+        source "$VENV_NAME/bin/activate"  # Activate the virtual environment
         pip uninstall -y -r requirements.txt
         echo "Requirements uninstalled."
     else
@@ -68,21 +67,19 @@ uninstall_requirements() {
 
 run_script() {
     if [ -f "$1" ]; then
-        source $VENV_NAME/bin/activate  # Activate the virtual environment
+        source "$VENV_NAME/bin/activate"  # Activate the virtual environment
         python "$1"  # Run the Python script
     else
         echo "Error: Script '$1' not found."
+        exit 1
     fi
 }
 
 run_tests_dry_run() {
     local source_dir="${1:-test}"
     local pattern="${2:-test*.py}"
-
-    # Construct the command
     local command="source $VENV_NAME/bin/activate && python -m unittest discover -s '$source_dir' -p '$pattern'"
 
-    # Echo the command
     echo "$command"
 }
 
@@ -91,7 +88,6 @@ run_tests() {
     local pattern="${2:-test*.py}"
     local echo_flag=false
 
-    # Check for the '--echo' flag in all arguments
     for arg in "$@"; do
         if [ "$arg" = "--echo" ]; then
             echo_flag=true
@@ -99,29 +95,24 @@ run_tests() {
         fi
     done
 
-    # Check if the source directory exists (this prevents unittest from potentially discovering and testing unintended locations)
     if [ ! -d "$source_dir" ]; then
         echo "Error: Source directory '$source_dir' does not exist."
         exit 1
     fi
 
-    # Construct the command with an absolute path to the virtual environment
     local venv_path="$(pwd)/$VENV_NAME/bin/activate"
     local command="source $venv_path && python -m unittest discover -s '$source_dir' -p '$pattern'"
 
-    # Echo the command if '--echo' flag is set
     if [ "$echo_flag" = true ]; then
         echo "$command"
     else
-        # Execute the command within the same shell
         eval "$command"
     fi
 }
 
-# Command line arguments handling
 case $1 in
     create)
-        create_venv "$2"  # Pass the second argument to create_venv
+        create_venv "$2"
         ;;
     activate)
         activate_venv
@@ -136,7 +127,7 @@ case $1 in
         uninstall_requirements
         ;;
     run)
-        run_script "$2"  # Pass the second argument to run_script
+        run_script "$2"
         ;;
     test)
         run_tests "$2" "$3"
