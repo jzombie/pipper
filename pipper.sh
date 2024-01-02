@@ -47,8 +47,7 @@ activate_venv() {
 
 install_requirements() {
     if [ -f "requirements.txt" ]; then
-        # shellcheck disable=SC1091
-        source "$VENV_NAME/bin/activate"  # Activate the virtual environment
+        activate_venv true
         pip install -r requirements.txt
         echo "Requirements installed."
     else
@@ -57,8 +56,7 @@ install_requirements() {
 }
 
 freeze_requirements() {
-    # shellcheck disable=SC1091
-    source "$VENV_NAME/bin/activate"  # Activate the virtual environment
+    activate_venv true
     pip freeze > requirements.txt
     echo "Requirements frozen into requirements.txt."
 }
