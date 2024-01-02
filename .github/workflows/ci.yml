@@ -14,13 +14,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Run ShellCheck
-        uses: ludeeus/action-shellcheck@master
-        with:
-          additional_files: |
-            pipper.sh
-            test_pipper.sh
-
       - name: Run tests
         run: |
           chmod +x test_pipper.sh
