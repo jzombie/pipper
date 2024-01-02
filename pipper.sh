@@ -104,7 +104,8 @@ run_tests() {
         exit 1
     fi
 
-    local venv_path="$(pwd)/$VENV_NAME/bin/activate"
+    local venv_path
+    venv_path="$(pwd)/$VENV_NAME/bin/activate"
     local command="source $venv_path && python -m unittest discover -s '$source_dir' -p '$pattern'"
 
     if [ "$echo_flag" = true ]; then
