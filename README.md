@@ -2,19 +2,21 @@
 
 Pipper intends to make working with pip a bit easier.
 
-**P**ackage **I**nstaller and **P**ython **P**roject **E**nvironment **R**unner
+Pipper is not intended to replace pip, and is intended to be used along-side pip.  If you're not using pip as your package manager, it is not recommended to use this project.
 
-## Features
+Pipper: **P**ackage **I**nstaller and **P**ython **P**roject **E**nvironment **R**unner
 
-- Create a Python virtual environment.
-- Activate a virtual environment.
-- Install packages from a `requirements.txt` file.
-- Freeze installed packages to update the `requirements.txt` file.
-- Uninstall packages listed in the `requirements.txt` file.
-- Run a Python script within the virtual environment using `pipper run`.
-- Run unit tests within the virtual environment using `pipper test`.
+## Commands/Features
 
-## Usage
+- `pipper create`: Create a Python virtual environment. If you have more than one version of Python installed locally, you can do `pipper create python[python-version]`. (Note: Pipper uses the `venv` directory in your project and supports one environment at a time.)
+- `pipper activate`: Activate a virtual environment.
+- `pipper install`: Install packages from a `requirements.txt` file (Note: if wanting to install a *specific* package, use `pip install [package-name]` instead).
+- `pipper freeze`: Freeze installed packages to update the `requirements.txt` file.
+- `pipper uninstall`: Uninstall packages listed in the `requirements.txt` file (Note: if wanting to uninstall a *specific* package, use `pip uninstall [package-name]` instead).
+- `pipper run`: Run a Python script within the virtual environment.
+- `pipper test`: Run unit tests within the virtual environment.
+
+## Getting Started
 
 ### Installation
 
@@ -47,24 +49,6 @@ sudo ln -s $(pwd)/pipper.sh /usr/local/bin/pipper
 ```
 
 Now, you can use Pipper as a global command by typing `pipper` in your terminal.
-
-### Commands
-
-Pipper supports the following commands:
-
-- `create`: Create a Python virtual environment.
-
-- `activate`: Display activation instructions for the virtual environment.
-
-- `install`: Install packages listed in the `requirements.txt` file in the virtual environment.
-
-- `freeze`: Freeze the installed packages into the `requirements.txt` file.
-
-- `uninstall`: Uninstall ALL packages listed in the `requirements.txt` file from the virtual environment.
-
-- `run`: Execute a Python script within the virtual environment.
-
-- `test`: Run unit tests within the virtual environment, using Python's unittest library.
 
 ### Custom Python Environment
 
