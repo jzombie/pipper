@@ -50,12 +50,19 @@ launch_venv_shell() {
         # Define a command to activate the venv
         ACTIVATE_VENV="source $VENV_NAME/bin/activate"
 
-        # Start a new shell instance with the venv activated
-        bash --init-file <(echo "$ACTIVATE_VENV; if [[ \$PS1 != *'($VENV_NAME)'* ]]; then PS1='($VENV_NAME) '\$PS1; fi")
+        # Define a new PS1 prompt including 'pipper', Python version, virtual environment name, and current directory
+        NEW_PS1="[pipper-shell python \$(python --version 2>&1 | cut -d ' ' -f 2) \$(basename $VENV_NAME)] \w \$"
+
+        # Define a custom greeting message
+        CUSTOM_GREETING=$'\nHello from pipper shell!'
+
+        # Start a new shell instance with the venv activated and new PS1
+        bash --init-file <(echo "$ACTIVATE_VENV; echo \"$CUSTOM_GREETING\"; export PS1=\"$NEW_PS1 \"")
     else
         echo "Virtual environment '$VENV_NAME' does not exist. Please create it first."
     fi
 }
+
 
 
 # Function to activate the virtual environment.
