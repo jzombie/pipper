@@ -42,6 +42,22 @@ create_venv() {
     activate_venv false
 }
 
+# Function to launch a sub-shell with the virtual environment activated.
+launch_venv_shell() {
+    if [ -d "$VENV_NAME" ]; then
+        echo "Launching a sub-shell with the virtual environment activated..."
+
+        # Define a command to activate the venv
+        ACTIVATE_VENV="source $VENV_NAME/bin/activate"
+
+        # Start a new shell instance with the venv activated
+        bash --init-file <(echo "$ACTIVATE_VENV; if [[ \$PS1 != *'($VENV_NAME)'* ]]; then PS1='($VENV_NAME) '\$PS1; fi")
+    else
+        echo "Virtual environment '$VENV_NAME' does not exist. Please create it first."
+    fi
+}
+
+
 # Function to activate the virtual environment.
 # Accepts a boolean argument to decide whether to activate it immediately.
 activate_venv() {
@@ -63,8 +79,9 @@ activate_venv() {
         source "$VENV_NAME/bin/activate"
     else
         # Display instructions on how to activate the environment manually.
-        echo "To activate the virtual environment, run:"
-        echo "source $VENV_NAME/bin/activate"
+        printf "\n\n"
+        echo "  To activate the virtual environment, run:"
+        echo "  pipper shell"
         printf "\n\n"
     fi
 }
@@ -156,6 +173,9 @@ case $1 in
     create)
         create_venv "$2"
         ;;
+    shell)
+        launch_venv_shell
+        ;;
     activate)
         activate_venv
         ;;
@@ -178,6 +198,7 @@ case $1 in
         run_tests_dry_run "$2" "$3"
         ;;
     *)
-        echo "Usage: $0 {create|activate|install|freeze|uninstall|run|test|test-dry-run}"
+        # Note: "activate" is intentionally not included, as it is primarily for testing
+        echo "Usage: $0 {create|shell|install|freeze|uninstall|run|test|test-dry-run}"
         ;;
 esac

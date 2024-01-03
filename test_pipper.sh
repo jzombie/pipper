@@ -59,7 +59,7 @@ run_test "$PIPPER_SCRIPT create && dir_exists venv" "Create Virtual Environment 
 
 # Test the activate_venv function (success is expected)
 activate_output=$($PIPPER_SCRIPT activate | tr -d '\n')
-expected_output="To activate the virtual environment, run:source venv/bin/activate"
+expected_output="  To activate the virtual environment, run:  pipper shell"
 run_test "[ \"$activate_output\" == \"$expected_output\" ]" "Activate Virtual Environment Test" 
 
 # Test the install_requirements function (success is expected)
