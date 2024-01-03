@@ -17,15 +17,12 @@ Pipper: **P**ackage **I**nstaller and **P**ython **P**roject **E**nvironment **R
 Note: All commands can be run from *outside* of the virtual environment and will automatically launch as needed.
 
 - `pipper create`: Create a Python virtual environment. If you have more than one version of Python installed locally, you can do `pipper create python[python-version]`. (Note: Pipper uses the `venv` directory in your project and supports one environment at a time.)
+- `pipper shell`: Drops into a Bash sub-shell already configured with the virtual environment.
 - `pipper install`: Install ALL packages from a `requirements.txt` file (Note: if wanting to install a *specific* package, use `pip install [package-name]` instead).
 - `pipper freeze`: Freeze installed packages to update the `requirements.txt` file.
 - `pipper uninstall`: Uninstall ALL packages listed in the `requirements.txt` file (Note: if wanting to uninstall a *specific* package, use `pip uninstall [package-name]` instead).
 - `pipper run`: Run a Python script within the virtual environment.
 - `pipper test`: Run unit tests within the virtual environment (via `unittest`).
-
-*Optionally:*
-
-- `pipper activate`: Not generally needed because all other Pipper commands will handle this for you; when executing directly it provides CLI instructions on how to manually start the virtual environment.
 
 ## Getting Started
 
