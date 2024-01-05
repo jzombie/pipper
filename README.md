@@ -14,7 +14,7 @@ Pipper: **P**ackage **I**nstaller and **P**ython **P**roject **E**nvironment **R
 
 ## Why Not Use Poetry?
 
-Pipper simplifies working with pip and virtual environments in Python, particularly beneficial for those who prefer pip's standardized approach, especially when forking and modifying projects with `requirements.txt`` files. While Poetry offers its advantages, Pipper sticks to pip's workflow for seamless integration with these files.
+Pipper simplifies working with pip and virtual environments in Python, particularly beneficial for those who prefer pip's standardized approach, especially when forking and modifying projects with `requirements.txt` files. While Poetry offers its advantages, Pipper sticks to pip's workflow for seamless integration with these files.
 
 With Pipper, you can continue to use pip, because Pipper uses pip itself.
 
