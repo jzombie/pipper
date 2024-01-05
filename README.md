@@ -109,7 +109,7 @@ pipper test tests '*_test.py'
 Note: You can also do a "dry run" to just echo the command it "would have" generated via:
 
 ```bash
-pipper test-try-run
+pipper test-dry-run
 
 # Produces:
 # source venv/bin/activate && python -m unittest discover -s 'test' -p 'test*.py'
