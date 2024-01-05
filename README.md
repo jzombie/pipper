@@ -4,7 +4,7 @@
 
 # Pipper - Python Virtual Environment Manager
 
-Pipper intends to make working with pip and virtual environments a bit easier.
+Pipper intends to make working with pip and virtual environments a bit easier by wrapping some of the most common functionality in dependency-less Bash.
 
 Pipper automates setting up virtual environments and automatically runs them for you.
 
