@@ -1,16 +1,24 @@
+![Python Logo](https://www.python.org/static/community_logos/python-logo-master-v3-TM.png)
+
 [![CI](https://github.com/jzombie/pipper/workflows/CI/badge.svg)](https://github.com/jzombie/pipper/actions/workflows/ci.yml)
 [![ShellCheck](https://github.com/jzombie/pipper/workflows/ShellCheck/badge.svg)](https://github.com/jzombie/pipper/actions/workflows/shellcheck.yml)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/b83c0ce7f8924db99be96d045ffc4503)](https://app.codacy.com/gh/jzombie/pipper/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 # Pipper - Python Virtual Environment Manager
 
-Pipper intends to make working with pip and virtual environments a bit easier.
+Pipper intends to make working with pip and virtual environments a bit easier by wrapping some of the most common functionality in dependency-less Bash.
 
 Pipper automates setting up virtual environments and automatically runs them for you.
 
 Pipper is not intended to replace pip, and is intended to be used alongside pip.  If you're not using pip as your package manager, it is not recommended to use this project.
 
 Pipper: **P**ackage **I**nstaller and **P**ython **P**roject **E**nvironment **R**unner
+
+## Why Not Use Poetry?
+
+Pipper simplifies working with pip and virtual environments in Python, particularly beneficial for those who prefer pip's standardized approach, especially when forking and modifying projects with `requirements.txt` files. While Poetry offers its advantages, Pipper sticks to pip's workflow for seamless integration with these files.
+
+With Pipper, you can continue to use pip, because Pipper uses pip itself.
 
 ## Commands/Features
 

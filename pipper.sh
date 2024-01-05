@@ -7,6 +7,8 @@ VENV_NAME="venv"
 
 # Function to create a virtual environment.
 # Accepts an optional Python interpreter version as an argument.
+# Usage: create_venv [python-version]
+# Example: create_venv python3.8
 create_venv() {
     local PYTHON
     # If a specific Python interpreter is provided, use it.
@@ -43,6 +45,8 @@ create_venv() {
 }
 
 # Function to launch a sub-shell with the virtual environment activated.
+# Usage: launch_venv_shell
+# Example: launch_venv_shell
 launch_venv_shell() {
     if [ -d "$VENV_NAME" ]; then
         echo "Launching a sub-shell with the virtual environment activated..."
@@ -63,10 +67,10 @@ launch_venv_shell() {
     fi
 }
 
-
-
 # Function to activate the virtual environment.
 # Accepts a boolean argument to decide whether to activate it immediately.
+# Usage: activate_venv [true|false]
+# Example: activate_venv true
 activate_venv() {
     local activate="$1"
     if [ "$activate" = true ]; then
@@ -94,6 +98,8 @@ activate_venv() {
 }
 
 # Function to install Python dependencies from a requirements file.
+# Usage: install_requirements
+# Example: install_requirements
 install_requirements() {
     if [ -f "requirements.txt" ]; then
         activate_venv true
@@ -105,6 +111,8 @@ install_requirements() {
 }
 
 # Function to freeze current Python dependencies into a requirements file.
+# Usage: freeze_requirements
+# Example: freeze_requirements
 freeze_requirements() {
     activate_venv true
     pip freeze > requirements.txt
@@ -112,6 +120,8 @@ freeze_requirements() {
 }
 
 # Function to uninstall Python dependencies listed in a requirements file.
+# Usage: uninstall_requirements
+# Example: uninstall_requirements
 uninstall_requirements() {
     if [ -f "requirements.txt" ]; then
         activate_venv true
@@ -123,6 +133,9 @@ uninstall_requirements() {
 }
 
 # Function to run a specified Python script within the virtual environment.
+# Accepts the path to a Python script as an argument.
+# Usage: run_script [script-path]
+# Example: run_script my_file.py
 run_script() {
     if [ -f "$1" ]; then
         activate_venv true
@@ -134,6 +147,9 @@ run_script() {
 }
 
 # Function to generate a command for running tests in dry-run mode.
+# Accepts optional arguments for the source directory and pattern.
+# Usage: run_tests_dry_run [source-dir] [pattern]
+# Example: run_tests_dry_run test test*.py
 run_tests_dry_run() {
     local source_dir="${1:-test}"
     local pattern="${2:-test*.py}"
@@ -144,6 +160,9 @@ run_tests_dry_run() {
 }
 
 # Function to execute unit tests within the virtual environment.
+# Accepts optional arguments for the source directory, pattern, and echo flag.
+# Usage: run_tests [source-dir] [pattern] [--echo]
+# Example: run_tests test test*.py --echo
 run_tests() {
     local source_dir="${1:-test}"
     local pattern="${2:-test*.py}"
