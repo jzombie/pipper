@@ -127,6 +127,16 @@ Here's an example of how to use Pipper to manage a Python project:
 
 4. As you work on your project and install new packages, periodically freeze the requirements.
 
+## Docker (for a quick development environment)
+
+```bash
+# The Python version can be changed by modifying the Dockerfile directly
+docker build -t pipper .
+
+# Defaults to a Bash shell at the /projects directory of the container
+docker run -it pipper
+```
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
