@@ -6,19 +6,17 @@
 
 # Pipper - Python Virtual Environment Manager
 
-Pipper intends to make working with pip and virtual environments a bit easier by wrapping some of the most common functionality in dependency-less Bash.
+Pipper is a lightweight pip wrapper, using very minimal code, written in Bash.
 
-Pipper automates setting up virtual environments and automatically runs them for you.
+## Why Not Use Poetry (or something else)?
 
-Pipper is not intended to replace pip, and is intended to be used alongside pip.  If you're not using pip as your package manager, it is not recommended to use this project.
+Pip is standard in Python but some of its most basic functionality is hard to use. Pipper was written to help me personally understand pip a little bit more, without introducing so much functionality that this project would become hard to maintain.
 
-Pipper: **P**ackage **I**nstaller and **P**ython **P**roject **E**nvironment **R**unner
+I got a distaste for using Poetry when trying to use it to install `tensorflow` on my Mac without hacking around with dependency configuration: https://github.com/python-poetry/poetry/issues/8271.  I also don't like the fact that Poetry doesn't use requirements.txt and it generally just feels slower to me than using pip.
 
-## Why Not Use Poetry?
+Poetry seems to be a great tool, but it should be compatible with pip, I believe, not try to replace it.
 
-Pipper simplifies working with pip and virtual environments in Python, particularly beneficial for those who prefer pip's standardized approach, especially when forking and modifying projects with `requirements.txt` files. While Poetry offers its advantages, Pipper sticks to pip's workflow for seamless integration with these files.
-
-With Pipper, you can continue to use pip, because Pipper uses pip itself.
+Pipper does not intend to replace `pip`, and I apologize if it appears like it does.
 
 ## Commands/Features
 
