@@ -45,25 +45,40 @@ create_venv() {
 }
 
 # Function to launch a sub-shell with the virtual environment activated.
-# Usage: launch_venv_shell
-# Example: launch_venv_shell
+# Accepts an optional command to execute with the -c flag.
+# Usage: launch_venv_shell -c [command]
+# Example: launch_venv_shell -c 'pwd'
 launch_venv_shell() {
-    if [ -d "$VENV_NAME" ]; then
-        echo "Launching a sub-shell with the virtual environment activated..."
+    local package_root
+    package_root=$(find_package_root)
 
+    if [[ -z "$package_root" ]]; then
+        echo "Error: Could not determine package root."
+        exit 1
+    fi
+
+    if [ -d "$package_root/$VENV_NAME" ]; then
         # Define a command to activate the venv
-        ACTIVATE_VENV="source $VENV_NAME/bin/activate"
+        ACTIVATE_VENV="source $package_root/$VENV_NAME/bin/activate"
 
-        # Define a new PS1 prompt including 'pipper', Python version, virtual environment name, and current directory
-        NEW_PS1="[pipper-shell python \$(python --version 2>&1 | cut -d ' ' -f 2) \$(basename $VENV_NAME)] \w \$"
+        # Check if a command is passed with the -c flag
+        if [ "$1" == "-c" ] && [ -n "$2" ]; then
+            # Execute the command and then exit the shell using -c flag
+            bash -c "$ACTIVATE_VENV && $2"
+        else
+            echo "Launching a sub-shell with the virtual environment activated..."
 
-        # Define a custom greeting message
-        CUSTOM_GREETING=$'\nHello from pipper shell!'
+            # Define a new PS1 prompt including 'pipper', Python version, virtual environment name, and current directory
+            NEW_PS1="[pipper-shell python \$(python --version 2>&1 | cut -d ' ' -f 2) \$(basename $VENV_NAME)] \w \$"
+            
+            # Define a custom greeting message
+            CUSTOM_GREETING=$'\nHello from pipper shell!'
 
-        # Start a new shell instance with the venv activated and new PS1
-        bash --init-file <(echo "$ACTIVATE_VENV; echo \"$CUSTOM_GREETING\"; export PS1=\"$NEW_PS1 \"")
+            # Start a new shell instance with the venv activated and new PS1
+            bash --init-file <(echo "$ACTIVATE_VENV; echo \"$CUSTOM_GREETING\"; export PS1=\"$NEW_PS1 \"")
+        fi
     else
-        echo "Virtual environment '$VENV_NAME' does not exist. Please create it first."
+        echo "Virtual environment '$VENV_NAME' does not exist at '$package_root'. Please create it first."
     fi
 }
 
@@ -227,7 +242,11 @@ case $1 in
         create_venv "$2"
         ;;
     shell)
-        launch_venv_shell
+        if [ "$2" == "-c" ] && [ -n "$3" ]; then
+            launch_venv_shell -c "$3"
+        else
+            launch_venv_shell
+        fi
         ;;
     activate)
         activate_venv

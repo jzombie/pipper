@@ -175,6 +175,36 @@ test_sub_tree_run() {
 
 # Test the pipper run command in sub_tree (success is expected)
 test_sub_tree_run
- 
+
+# Function to test launching a shell from any subdirectory
+test_shell_from_sub_tree() {
+    # Ensure the sub_tree directory exists
+    mkdir -p sub_tree
+
+    # Get the absolute path to the pipper.sh script
+    PIPPER_SCRIPT_ABS="$(cd "$(dirname "$PIPPER_SCRIPT")" && pwd)/$(basename "$PIPPER_SCRIPT")"
+
+    # Change to the sub_tree directory and launch the shell using pipper
+    run_output=$(cd sub_tree && $PIPPER_SCRIPT_ABS shell -c "pwd" 2>&1)
+
+    # Check if the output is as expected
+    expected_output=$(cd sub_tree && pwd)
+
+    if [[ "$run_output" == *"$expected_output"* ]]; then
+        echo "Shell from Sub Tree Test: Passed"
+    else
+        echo "Shell from Sub Tree Test: Failed"
+        echo "Expected: '$expected_output', but got: '$run_output'"
+        exit 1
+    fi
+
+    # Cleanup: Remove the sub_tree directory
+    rm -rf sub_tree
+}
+
+# Test launching the shell from a subdirectory (success is expected)
+test_shell_from_sub_tree
+
+
 # Cleanup: Remove the virtual environment and requirements.txt
 rm -rf venv requirements.txt
