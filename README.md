@@ -8,9 +8,10 @@
 
 Pipper is a lightweight pip wrapper, using very minimal code, written in Bash.
 
-## Best Feature?
+## Best Features (in my opinion)?
 
-Run Python scripts from any subdirectory, with all dependencies resolved as if run from the project's root directory.
+- Run Python scripts from any subdirectory, with all dependencies resolved as if run from the project's root directory. See `pipper run`.
+- Launch virtual environments from any subdirectory. See `pipper shell`.
 
 ## Why Not Use Poetry (or something else)?
 
