@@ -8,6 +8,10 @@
 
 Pipper is a lightweight pip wrapper, using very minimal code, written in Bash.
 
+## Best Feature?
+
+Run Python scripts from any subdirectory, with all dependencies resolved as if run from the project's root directory.
+
 ## Why Not Use Poetry (or something else)?
 
 Pip is standard in Python but some of its most basic functionality is hard to use. Pipper was written to help me personally understand pip a little bit more, without introducing so much functionality that this project would become hard to maintain.
@@ -27,7 +31,7 @@ Note: All commands can be run from *outside* of the virtual environment and will
 - `pipper install`: Install ALL packages from a `requirements.txt` file (Note: if wanting to install a *specific* package, use `pip install [package-name]` instead).
 - `pipper freeze`: Freeze installed packages to update the `requirements.txt` file.
 - `pipper uninstall`: Uninstall ALL packages listed in the `requirements.txt` file (Note: if wanting to uninstall a *specific* package, use `pip uninstall [package-name]` instead).
-- `pipper run`: Run a Python script within the virtual environment.
+- `pipper run`: Run a Python script within the virtual environment from any location within the project's subdirectory.
 - `pipper test`: Run unit tests within the virtual environment (via `unittest`).
 
 ## Getting Started

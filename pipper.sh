@@ -73,6 +73,15 @@ launch_venv_shell() {
 # Example: activate_venv true
 activate_venv() {
     local activate="$1"
+    local package_root
+
+    package_root=$(find_package_root)
+
+    if [[ -z "$package_root" ]]; then
+        echo "Error: Could not determine package root."
+        exit 1
+    fi
+
     if [ "$activate" = true ]; then
         # Activate the virtual environment.
         # shellcheck disable=SC1091
@@ -87,7 +96,7 @@ activate_venv() {
         # - These files are standard and trusted, thus not posing a risk that necessitates ShellCheck analysis.
         # - Disabling this warning allows us to use such scripts without ShellCheck flagging them as issues,
         #   keeping the focus on actual potential problems in the script's own code.
-        source "$VENV_NAME/bin/activate"
+        source "$package_root/$VENV_NAME/bin/activate"
     else
         # Display instructions on how to activate the environment manually.
         printf "\n\n"
@@ -129,20 +138,6 @@ uninstall_requirements() {
         echo "Requirements uninstalled."
     else
         echo "requirements.txt not found."
-    fi
-}
-
-# Function to run a specified Python script within the virtual environment.
-# Accepts the path to a Python script as an argument.
-# Usage: run_script [script-path]
-# Example: run_script my_file.py
-run_script() {
-    if [ -f "$1" ]; then
-        activate_venv true
-        python "$1"  # Execute the Python script
-    else
-        echo "Error: Script '$1' not found."
-        exit 1
     fi
 }
 
@@ -195,6 +190,44 @@ run_tests() {
     fi
 }
 
+# Function to find the package root by searching for a specific file or directory.
+# Usage: find_package_root
+# Example: find_package_root
+find_package_root() {
+    local dir="${PWD}"
+
+    while [[ "$dir" != "/" ]]; do
+        if [[ -f "$dir/requirements.txt" ]] || [[ -d "$dir/$VENV_NAME" ]] || [[ -d "$dir/.git" ]]; then
+            echo "$dir"
+            return
+        fi
+        dir=$(dirname "$dir")
+    done
+
+    echo "Error: Package root not found."
+    exit 1
+}
+
+# Function to run a specified Python script within the virtual environment.
+# Accepts the path to a Python script as an argument.
+# Usage: run_script [script-path]
+# Example: run_script my_file.py
+run_script() {
+    if [ -f "$1" ]; then
+        local script_path="$1"
+
+        # Activate the virtual environment if not already activated
+        if [[ -z "$VIRTUAL_ENV" ]]; then
+            activate_venv true
+        fi
+
+        PYTHONPATH=$(find_package_root) python "$script_path"
+    else
+        echo "Error: Script '$1' not found."
+        exit 1
+    fi
+}
+
 # Main command switch to execute the appropriate function based on input.
 case $1 in
     create)
@@ -224,8 +257,11 @@ case $1 in
     test-dry-run)
         run_tests_dry_run "$2" "$3"
         ;;
+    find-root)
+        find_package_root
+        ;;
     *)
         # Note: "activate" is intentionally not included, as it is primarily for testing
-        echo "Usage: $0 {create|shell|install|freeze|uninstall|run|test|test-dry-run}"
+        echo "Usage: $0 {create|shell|install|freeze|uninstall|run|test|test-dry-run|find-root}"
         ;;
 esac
