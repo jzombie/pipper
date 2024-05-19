@@ -141,6 +141,40 @@ test_pipper_run_tests_dry_run
 
 # Test that test runner fails if test location is unavailable (failure is expected)
 run_failure_test "$PIPPER_SCRIPT test" "Invalid Python Test Location"
+
+# Function to test changing to sub_tree and running a Python script
+test_sub_tree_run() {
+    # Ensure the sub_tree directory exists
+    mkdir -p sub_tree
+
+    # Create a Python script in the sub_tree directory
+    echo "import os" > sub_tree/sub_tree.py
+    echo "print(os.getcwd())" >> sub_tree/sub_tree.py
+
+    # Get the absolute path to the pipper.sh script
+    PIPPER_SCRIPT_ABS="$(cd "$(dirname "$PIPPER_SCRIPT")" && pwd)/$(basename "$PIPPER_SCRIPT")"
+
+    # Change to the sub_tree directory and run the script using pipper
+    run_output=$(cd sub_tree && "$PIPPER_SCRIPT_ABS" run sub_tree.py 2>&1)
+
+    # Check if the output is as expected
+    expected_output=$(cd sub_tree && pwd) # "abs_path/pipper/sub_tree"
+
+    if [ "$run_output" == "$expected_output" ]; then
+        echo "Sub Tree Run Test: Passed"
+    else
+        echo "Sub Tree Run Test: Failed"
+        echo "Expected: '$expected_output', but got: '$run_output'"
+        exit 1
+    fi
+
+    # Cleanup: Remove the sub_tree directory
+    rm -rf sub_tree
+}
+
+
+# Test the pipper run command in sub_tree (success is expected)
+test_sub_tree_run
  
 # Cleanup: Remove the virtual environment and requirements.txt
 rm -rf venv requirements.txt
