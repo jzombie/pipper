@@ -58,7 +58,7 @@ Pipper can be used without installation by running the `pipper.sh` script direct
    sudo install -m 755 pipper.sh /usr/local/bin/pipper
    ```
 
-  _(Or replace /usr/local/bin/ with a directory of your choice that is in your system's PATH.)_
+  _(Or replace `/usr/local/bin/` with a directory of your choice that is in your system's PATH.)_
 
 Now, you can use Pipper as a global command by typing `pipper` in your terminal.
 
@@ -68,7 +68,7 @@ Now, you can use Pipper as a global command by typing `pipper` in your terminal.
 sudo rm /usr/local/bin/pipper
 ```
 
-_(Or replace /usr/local/bin/ with the directory where you installed it.)_
+_(Or replace `/usr/local/bin/` with the directory where you installed it.)_
 
 ### Custom Python Environment
 
