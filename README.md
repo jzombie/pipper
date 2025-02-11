@@ -89,19 +89,29 @@ This command will attempt to create a virtual environment using Python 3.8, if i
 
 ### Running Python Scripts
 
-To run a Python script within the virtual environment, use the run command:
+If you are **inside the virtual environment**, you can run a Python script as usual:  
+
+```bash
+python script.py
+```
+
+However, if you are **outside the virtual environment**, you can use `pipper run` to automatically activate the environment and execute the script:  
 
 ```bash
 pipper run script.py
 ```
 
-### Running Python Unit Tests
+This ensures that the script runs within the virtual environment, whether you are inside or outside of it.
 
-To run unit tests within the virtual environment, use the test command:
+### Running Python Unit Tests (via `unittest`)
+
+If you are using the `unittest` framework, you can run your project's unit tests using the `pipper test` command:
 
 ```bash
 pipper test
 ```
+
+_Note: This command can be invoked whether inside or outside of the virtual environment, and will ensure tests are run within your virtual environment._
 
 By default, this command will discover and run unit tests located in the 'test' directory with filenames matching the pattern 'test*.py'.
 
