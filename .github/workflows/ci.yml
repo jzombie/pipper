@@ -32,4 +32,4 @@ jobs:
         run: docker build -t pipper .
 
       - name: Run Pipper in Docker
-        run: docker run -it pipper pipper --help
+        run: docker run --rm pipper pipper --help
