@@ -6,13 +6,13 @@
 
 ![Python Logo](https://www.python.org/static/community_logos/python-logo-master-v3-TM.png)
 
-`Pipper` is a lightweight `pip` wrapper, using very minimal code written in Bash, which simplifies creating virtual environments, installing packages, and freezing `requirements.txt`.
+`Pipper` is a lightweight `pip` wrapper, using very minimal code written in `Bash`, which simplifies creating virtual environments, installing packages, and freezing `requirements.txt`.
 
 It does not aim to do anything more than that.
 
 ## Why Not Use Poetry (or something else)?
 
-Pip is standard in Python, but some of its basic functionalities are hard to use. Pipper was written to help me understand `pip` a little bit more without introducing so much functionality that this project would become hard to maintain.
+`Pip` is standard in `Python`, but some of its basic functionalities are hard to use. `Pipper` was written to help me understand `pip` a little bit more without introducing so much functionality that this project would become hard to maintain.
 
 I got a distaste for using `Poetry` when trying to use it to install `tensorflow` on my Mac without hacking around with dependency configuration: https://github.com/python-poetry/poetry/issues/8271.  I also don't like the fact that `Poetry` doesn't use `requirements.txt`; it generally feels slower than `pip`.
 
