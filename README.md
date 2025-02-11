@@ -1,10 +1,10 @@
-![Python Logo](https://www.python.org/static/community_logos/python-logo-master-v3-TM.png)
+# Pipper - A Simple `pip` Wrapper (Written in Bash)
 
 [![CI](https://github.com/jzombie/pipper/workflows/CI/badge.svg)](https://github.com/jzombie/pipper/actions/workflows/ci.yml)
 [![ShellCheck](https://github.com/jzombie/pipper/workflows/ShellCheck/badge.svg)](https://github.com/jzombie/pipper/actions/workflows/shellcheck.yml)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/b83c0ce7f8924db99be96d045ffc4503)](https://app.codacy.com/gh/jzombie/pipper/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
-# Pipper - Python Virtual Environment Manager
+![Python Logo](https://www.python.org/static/community_logos/python-logo-master-v3-TM.png)
 
 `Pipper` is a lightweight `pip` wrapper, using very minimal code written in Bash, which simplifies creating virtual environments, installing packages, and freezing `requirements.txt`.
 
