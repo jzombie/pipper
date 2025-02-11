@@ -22,8 +22,9 @@ I got a distaste for using `Poetry` when trying to use it to install `tensorflow
 
 ## Tested Platforms
 
-Pipper has been tested on the following platforms:
+Pipper has been tested on the following operating systems and Python versions:
 
+- Python 3.10 - 3.12
 - Ubuntu 22 & 24
 - macOS Ventura 13.6
 
@@ -89,19 +90,29 @@ This command will attempt to create a virtual environment using Python 3.8, if i
 
 ### Running Python Scripts
 
-To run a Python script within the virtual environment, use the run command:
+If you are **inside the virtual environment**, you can run a Python script as usual:  
+
+```bash
+python script.py
+```
+
+However, if you are **outside the virtual environment**, you can use `pipper run` to automatically activate the environment and execute the script:  
 
 ```bash
 pipper run script.py
 ```
 
-### Running Python Unit Tests
+This ensures that the script runs within the virtual environment, whether you are inside or outside of it.
 
-To run unit tests within the virtual environment, use the test command:
+### Running Python Unit Tests (via `unittest`)
+
+If you are using the `unittest` framework, you can run your project's unit tests using the `pipper test` command:
 
 ```bash
 pipper test
 ```
+
+_Note: This command can be invoked whether inside or outside of the virtual environment, and will ensure tests are run within your virtual environment._
 
 By default, this command will discover and run unit tests located in the 'test' directory with filenames matching the pattern 'test*.py'.
 
@@ -138,7 +149,7 @@ Here's an example of how to use Pipper to manage a Python project:
 
 4. As you work on your project and install new packages, periodically freeze the requirements.
 
-## Docker (for a quick `Python` w/ `Pipper` environment)
+## Docker [Optional] (for a quick `Python` w/ `Pipper` environment)
 
 ```bash
 # Build the Pipper Docker image using the Python version specified in the Dockerfile
@@ -162,4 +173,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-Enjoy using Pipper for managing your Python virtual environments and dependencies! If you encounter any issues or have suggestions for improvements, feel free to contribute to the [project on GitHub](https://github.com/jzombie/pipper).
+Enjoy using `Pipper` for managing your `Python` virtual environments and dependencies! If you encounter any issues or have suggestions for improvements, feel free to contribute to the [project on GitHub](https://github.com/jzombie/pipper).
