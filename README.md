@@ -6,7 +6,9 @@
 
 # Pipper - Python Virtual Environment Manager
 
-Pipper is a lightweight pip wrapper, using very minimal code, written in Bash.
+Pipper is a lightweight `pip` wrapper, using very minimal code, written in Bash, which simplifes creating virtual environments, installing packages, and freezing `requirements.txt`.
+
+It does not aim to do anything more than that.
 
 ## Why Not Use Poetry (or something else)?
 
@@ -32,37 +34,41 @@ Note: All commands can be run from *outside* of the virtual environment and will
 
 ## Getting Started
 
-### Installation
-
 Note: Pipper requires a Bash shell.
 
 Pipper can be used without installation by running the `pipper.sh` script directly. However, if you want to make it globally accessible, you can install it as follows:
 
+### Installation [Optional]
+
 1. Clone the Pipper repository to your local machine:
 
-```bash
-git clone https://github.com/jzombie/pipper.git
-```
+   ```bash
+   git clone https://github.com/jzombie/pipper.git
+   ```
 
 2. Navigate to the Pipper directory:
 
-```bash
-cd pipper
-```
+   ```bash
+   cd pipper
+   ```
 
-3. Make the `pipper.sh` script executable:
+3. Install Pipper globally using the `install` command:
 
-```bash
-chmod +x pipper.sh
-```
+   ```bash
+   sudo install -m 755 pipper.sh /usr/local/bin/pipper
+   ```
 
-4. Create a symbolic link to the script in a directory that's in your system's `PATH`, such as `/usr/local/bin`:
-
-```bash
-sudo ln -s $(pwd)/pipper.sh /usr/local/bin/pipper
-```
+  _(Or replace /usr/local/bin/ with a directory of your choice that is in your system's PATH.)_
 
 Now, you can use Pipper as a global command by typing `pipper` in your terminal.
+
+### Uninstall
+
+```bash
+sudo rm /usr/local/bin/pipper
+```
+
+_(Or replace /usr/local/bin/ with the directory where you installed it.)_
 
 ### Custom Python Environment
 
