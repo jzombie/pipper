@@ -6,19 +6,26 @@
 
 # Pipper - Python Virtual Environment Manager
 
-Pipper is a lightweight `pip` wrapper, using very minimal code, written in Bash, which simplifes creating virtual environments, installing packages, and freezing `requirements.txt`.
+`Pipper` is a lightweight `pip` wrapper, using very minimal code written in Bash, which simplifies creating virtual environments, installing packages, and freezing `requirements.txt.`
 
 It does not aim to do anything more than that.
 
 ## Why Not Use Poetry (or something else)?
 
-Pip is standard in Python but some of its most basic functionality is hard to use. Pipper was written to help me personally understand pip a little bit more, without introducing so much functionality that this project would become hard to maintain.
+Pip is standard in Python, but some of its basic functionalities are hard to use. Pipper was written to help me understand `pip` a little bit more without introducing so much functionality that this project would become hard to maintain.
 
-I got a distaste for using Poetry when trying to use it to install `tensorflow` on my Mac without hacking around with dependency configuration: https://github.com/python-poetry/poetry/issues/8271.  I also don't like the fact that Poetry doesn't use requirements.txt and it generally just feels slower to me than using pip.
+I got a distaste for using `Poetry` when trying to use it to install `tensorflow` on my Mac without hacking around with dependency configuration: https://github.com/python-poetry/poetry/issues/8271.  I also don't like the fact that `Poetry` doesn't use `requirements.txt`; it generally feels slower than `pip`.
 
-Poetry seems to be a great tool, but it should be compatible with pip, I believe, not try to replace it.
+`Poetry` seems to be a great tool, but it should be compatible with `pip`, I believe, not try to replace it.
 
-Pipper does not intend to replace `pip`, and I apologize if it appears like it does.
+`Pipper` does not intend to replace `pip`, and I apologize if it appears as it does.
+
+## Tested Platforms
+
+Pipper has been tested on the following platforms:
+
+- Ubuntu 22 & 24
+- macOS Ventura 13.6
 
 ## Commands/Features
 
