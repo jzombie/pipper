@@ -7,11 +7,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Copy project files
 COPY . /pipper
 
-# Ensure the script is executable
-RUN chmod +x /pipper/pipper.sh
-
-# Install Pipper globally
-RUN ln -s /pipper/pipper.sh /usr/local/bin/pipper
+# Install Pipper globally using the install command (sets executable permissions)
+RUN install -m 755 /pipper/pipper.sh /usr/local/bin/pipper
 
 # Set the working directory
 WORKDIR /projects
