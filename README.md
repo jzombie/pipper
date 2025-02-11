@@ -1,4 +1,5 @@
-# Pipper - A Simple `pip` Wrapper (Written in Bash)
+# Pipper - PIP Python Environment Runner
+_(A Simple `pip` Wrapper Written in Bash)_
 
 [![CI](https://github.com/jzombie/pipper/workflows/CI/badge.svg)](https://github.com/jzombie/pipper/actions/workflows/ci.yml)
 [![ShellCheck](https://github.com/jzombie/pipper/workflows/ShellCheck/badge.svg)](https://github.com/jzombie/pipper/actions/workflows/shellcheck.yml)
