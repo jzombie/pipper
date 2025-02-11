@@ -148,7 +148,7 @@ Here's an example of how to use Pipper to manage a Python project:
 
 4. As you work on your project and install new packages, periodically freeze the requirements.
 
-## Docker (for a quick `Python` w/ `Pipper` environment)
+## Docker [Optional] (for a quick `Python` w/ `Pipper` environment)
 
 ```bash
 # Build the Pipper Docker image using the Python version specified in the Dockerfile
