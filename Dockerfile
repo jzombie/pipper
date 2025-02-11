@@ -1,5 +1,5 @@
 # Use an official Python base image
-FROM python:3.11
+FROM python:3.12
 
 # Avoid interactive dialogues by setting this environment variable
 ENV DEBIAN_FRONTEND=noninteractive
