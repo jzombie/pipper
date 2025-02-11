@@ -10,6 +10,15 @@
 
 It does not aim to do anything more than that.
 
+```bash
+$ pipper shell
+Launching a sub-shell with the virtual environment activated...
+
+Hello from pipper shell!
+
+[pipper-shell python 3.12.5] /Volumes/MyVolume/Projects/my_project $
+```
+
 ## Why Not Use Poetry (or something else)?
 
 `Pip` is standard in `Python`, but some of its basic functionalities are hard to use. `Pipper` was written to help me understand `pip` a little bit more without introducing so much functionality that this project would become hard to maintain.
