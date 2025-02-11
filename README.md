@@ -6,7 +6,7 @@
 
 ![Python Logo](https://www.python.org/static/community_logos/python-logo-master-v3-TM.png)
 
-`Pipper` is a lightweight `pip` wrapper, using very minimal code written in `Bash`, which simplifies creating virtual environments, installing packages, and freezing `requirements.txt`.
+`Pipper` is a lightweight `pip` wrapper, using very minimal code written in `Bash`, which simplifies creating `Python` virtual environments, installing packages, and freezing `requirements.txt`.
 
 It does not aim to do anything more than that.
 
@@ -31,11 +31,11 @@ I got a distaste for using `Poetry` when trying to use it to install `tensorflow
 
 ## Tested Platforms
 
-Pipper has been tested on the following operating systems and Python versions:
+`Pipper` has been tested on the following operating systems and Python versions:
 
-- Python 3.10 - 3.12
-- Ubuntu 22 & 24
-- macOS Ventura 13.6
+- `Python 3.10 - 3.12`
+- `Ubuntu 22 & 24`
+- `macOS Ventura 13.6`
 
 ## Commands/Features
 
@@ -51,25 +51,25 @@ Note: All commands can be run from *outside* of the virtual environment and will
 
 ## Getting Started
 
-Note: Pipper requires a Bash shell.
+Note: `Pipper` requires a `Bash` shell.
 
-Pipper can be used without installation by running the `pipper.sh` script directly. However, if you want to make it globally accessible, you can install it as follows:
+`Pipper` can be **used without installation** by running the `pipper.sh` script directly. However, if you want to make it globally accessible, you can install it as follows:
 
 ### Installation [Optional]
 
-1. Clone the Pipper repository to your local machine:
+1. Clone the `Pipper` repository to your local machine:
 
    ```bash
    git clone https://github.com/jzombie/pipper.git
    ```
 
-2. Navigate to the Pipper directory:
+2. Navigate to the `Pipper` directory:
 
    ```bash
    cd pipper
    ```
 
-3. Install Pipper globally using the `install` command:
+3. Install `Pipper` globally using the `install` command:
 
    ```bash
    sudo install -m 755 pipper.sh /usr/local/bin/pipper
@@ -99,7 +99,7 @@ This command will attempt to create a virtual environment using Python 3.8, if i
 
 ### Running Python Scripts
 
-If you are **inside the virtual environment**, you can run a Python script as usual:  
+If you are **inside the virtual environment**, you can run a `Python` script as usual:  
 
 ```bash
 python script.py
@@ -148,7 +148,7 @@ pipper test-dry-run
 
 ### Example Workflow
 
-Here's an example of how to use Pipper to manage a Python project:
+Here's an example of how to use `Pipper` to manage a `Python` project:
 
 1. Create a virtual environment.
 
