@@ -6,7 +6,7 @@
 
 # Pipper - Python Virtual Environment Manager
 
-`Pipper` is a lightweight `pip` wrapper, using very minimal code written in Bash, which simplifies creating virtual environments, installing packages, and freezing `requirements.txt.`
+`Pipper` is a lightweight `pip` wrapper, using very minimal code written in Bash, which simplifies creating virtual environments, installing packages, and freezing `requirements.txt`.
 
 It does not aim to do anything more than that.
 
