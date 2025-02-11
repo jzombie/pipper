@@ -22,8 +22,9 @@ I got a distaste for using `Poetry` when trying to use it to install `tensorflow
 
 ## Tested Platforms
 
-Pipper has been tested on the following platforms:
+Pipper has been tested on the following operating systems and Python versions:
 
+- Python 3.10 - 3.12
 - Ubuntu 22 & 24
 - macOS Ventura 13.6
 
@@ -172,4 +173,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-Enjoy using Pipper for managing your Python virtual environments and dependencies! If you encounter any issues or have suggestions for improvements, feel free to contribute to the [project on GitHub](https://github.com/jzombie/pipper).
+Enjoy using `Pipper` for managing your `Python` virtual environments and dependencies! If you encounter any issues or have suggestions for improvements, feel free to contribute to the [project on GitHub](https://github.com/jzombie/pipper).
