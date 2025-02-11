@@ -19,3 +19,17 @@ jobs:
           chmod +x test_pipper.sh
           ./test_pipper.sh
         working-directory: ${{ github.workspace }}
+
+  docker:
+    runs-on: ubuntu-latest
+    needs: build  # Ensures tests pass before running Docker
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Docker image
+        run: docker build -t pipper .
+
+      - name: Run Pipper in Docker
+        run: docker run --rm pipper pipper --help

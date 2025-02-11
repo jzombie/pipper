@@ -1,24 +1,31 @@
-![Python Logo](https://www.python.org/static/community_logos/python-logo-master-v3-TM.png)
+# Pipper - A Simple `pip` Wrapper (Written in Bash)
 
 [![CI](https://github.com/jzombie/pipper/workflows/CI/badge.svg)](https://github.com/jzombie/pipper/actions/workflows/ci.yml)
 [![ShellCheck](https://github.com/jzombie/pipper/workflows/ShellCheck/badge.svg)](https://github.com/jzombie/pipper/actions/workflows/shellcheck.yml)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/b83c0ce7f8924db99be96d045ffc4503)](https://app.codacy.com/gh/jzombie/pipper/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
-# Pipper - Python Virtual Environment Manager
+![Python Logo](https://www.python.org/static/community_logos/python-logo-master-v3-TM.png)
 
-Pipper is a lightweight `pip` wrapper, using very minimal code, written in Bash, which simplifes creating virtual environments, installing packages, and freezing `requirements.txt`.
+`Pipper` is a lightweight `pip` wrapper, using very minimal code written in `Bash`, which simplifies creating virtual environments, installing packages, and freezing `requirements.txt`.
 
 It does not aim to do anything more than that.
 
 ## Why Not Use Poetry (or something else)?
 
-Pip is standard in Python but some of its most basic functionality is hard to use. Pipper was written to help me personally understand pip a little bit more, without introducing so much functionality that this project would become hard to maintain.
+`Pip` is standard in `Python`, but some of its basic functionalities are hard to use. `Pipper` was written to help me understand `pip` a little bit more without introducing so much functionality that this project would become hard to maintain.
 
-I got a distaste for using Poetry when trying to use it to install `tensorflow` on my Mac without hacking around with dependency configuration: https://github.com/python-poetry/poetry/issues/8271.  I also don't like the fact that Poetry doesn't use requirements.txt and it generally just feels slower to me than using pip.
+I got a distaste for using `Poetry` when trying to use it to install `tensorflow` on my Mac without hacking around with dependency configuration: https://github.com/python-poetry/poetry/issues/8271.  I also don't like the fact that `Poetry` doesn't use `requirements.txt`; it generally feels slower than `pip`.
 
-Poetry seems to be a great tool, but it should be compatible with pip, I believe, not try to replace it.
+`Poetry` seems to be a great tool, but it should be compatible with `pip`, I believe, not try to replace it.
 
-Pipper does not intend to replace `pip`, and I apologize if it appears like it does.
+`Pipper` does not intend to replace `pip`, and I apologize if it appears as it does.
+
+## Tested Platforms
+
+Pipper has been tested on the following platforms:
+
+- Ubuntu 22 & 24
+- macOS Ventura 13.6
 
 ## Commands/Features
 
@@ -131,14 +138,22 @@ Here's an example of how to use Pipper to manage a Python project:
 
 4. As you work on your project and install new packages, periodically freeze the requirements.
 
-## Docker (for a quick development environment)
+## Docker (for a quick `Python` w/ `Pipper` environment)
 
 ```bash
-# The Python version can be changed by modifying the Dockerfile directly
+# Build the Pipper Docker image using the Python version specified in the Dockerfile
 docker build -t pipper .
 
-# Defaults to a Bash shell at the /projects directory of the container
+# Run an interactive Bash shell inside the container, using the Python version defined in the Dockerfile
 docker run -it pipper
+
+# Once inside the container, you can check the active Python version:
+python --version
+# Example output:
+# Python 3.12.9
+
+# Pipper is installed locally inside the container and can be used directly:
+pipper --help
 ```
 
 ## License
